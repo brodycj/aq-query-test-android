@@ -5,8 +5,7 @@
 function a1(s) {
     document.getElementById('a1').innerHTML=s;
 }
-var r = new XMLHttpRequest();
-r.open("POST", "aqaq:asdf?afsd=%12&,s=23%3", true);
-r.send();
 document.getElementById('d1').innerHTML='<i>div test</i>';
+var w = new Worker('mytask.js');
+w.postMessage('go');
 </script>
