@@ -3,6 +3,8 @@ package io.liteglue;
 import android.app.Activity;
 import android.os.Bundle;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.webkit.WebResourceResponse;
 
 public class AQTest extends Activity
 {
@@ -12,8 +14,17 @@ public class AQTest extends Activity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        WebView webView = (WebView)findViewById(R.id.webview);
+        final WebView webView = (WebView)findViewById(R.id.webview);
         webView.getSettings().setJavaScriptEnabled(true);
+
+        webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public WebResourceResponse shouldInterceptRequest(WebView v, String url) {
+                webView.loadUrl("javascript:a1('got url: " + url + "')");
+                return null;
+            }
+        });
+
         webView.loadUrl("file:///android_asset/www/index.html");
     }
 }
