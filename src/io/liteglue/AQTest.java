@@ -20,7 +20,7 @@ public class AQTest extends Activity
         webView.setWebViewClient(new WebViewClient() {
             @Override
             public WebResourceResponse shouldInterceptRequest(WebView v, String url) {
-                webView.loadUrl("javascript:a1('got url: " + url + "')");
+                webView.loadUrl("javascript:aqcallback('got uri: " + url + "')");
                 return null;
             }
         });
