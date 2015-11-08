@@ -18,6 +18,8 @@ The interaction between Javascript and native Java works as follows:
 - The Javascript executes a simple XHR POST with a `file:` or custom URI
 - The Java sees URL request and triggers the Javascript `aqcallback` function with a string that echos the URI from the XHR request
 
+This project also has an `AQManager` component that keeps and handles the routing for multiple components that implement the `AQHandler` interface.
+
 This project is a starting point for the following ideas (so far):
 - Javascript-native interface that can be used from a web worker within Cordova, such as: [@brodybits / cordova-aqs-android](https://github.com/brodybits/cordova-aqs-android) and [@brodybits / cordova-aqs-ios](https://github.com/brodybits/cordova-aqs-ios)
 - Provide a sqlite database access layer for Javascript that can be used within multiple Javascript-native bridging frameworks including Cordova, React Native, and NativeScript
@@ -26,6 +28,10 @@ This project is a starting point for the following ideas (so far):
 ## Security warning
 
 The Cordova project has been fixing security issues in its external domain whitelist plugin over time, and has also dealt with security issues in its internal bridging mechanism. It is very strongly advised NOT to release an app with a custom-built web view bridging or domain whitelisting mechanism without proper code review and testing.
+
+## Other major limitations
+
+- There is no general message queueing. The idea is currently let each component implement its own queueing mechanism.
 
 ## Related project(s)
 
