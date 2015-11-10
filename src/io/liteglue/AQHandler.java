@@ -9,5 +9,5 @@
 package io.liteglue;
 
 public interface AQHandler {
-    public void handleMessage(String name, String parameters);
+    public void handleMessage(String name, String parameters, String cbHandler, String cbId);
 }

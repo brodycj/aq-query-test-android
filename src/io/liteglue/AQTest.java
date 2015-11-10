@@ -21,8 +21,9 @@ public class AQTest extends Activity
 
         manager.setHandler("as", new AQHandler() {
             @Override
-            public void handleMessage(String name, String parameters) {
-                webView.loadUrl("javascript:aqcallback('got message: " + name + " parameters: " + parameters + "')");
+            public void handleMessage(String name, String parameters, String cbHandler, String cbId) {
+                String cbScript = "aqcallback('" + cbHandler + "', '" + cbId + "?got message: " + name + " parameters: " + parameters + "')";
+                webView.loadUrl("javascript:" + cbScript);
             }
         });
 
@@ -61,15 +62,31 @@ public class AQTest extends Activity
                         return null;
                     }
 
-                    String me = routeParameters.substring(0, routeParametersSep);
+                    String method = routeParameters.substring(0, routeParametersSep);
+
+                    String internalParameters = routeParameters.substring(routeParametersSep + 1);
+
+                    int internalSep = internalParameters.indexOf('@');
+                    if (internalSep < 0) {
+                        webView.loadUrl("javascript:aqcallback('SORRY MISSING @')");
+                        return null;
+                    }
+
+                    String cbParameters = internalParameters.substring(0, internalSep);
+
+                    String [] cbComponents = cbParameters.split("-");
+                    if (cbComponents.length < 2) {
+                        webView.loadUrl("javascript:aqcallback('SORRY MISSING -')");
+                        return null;
+                    }
 
                     // XXX SECURITY TODO: use code parameter to check a security code, like they do in the Cordova framework
-                    //String code = routeParameters.substring(routeParametersSep + 1, routeParameters.length());
+                    //String code = internalParameters.substring(internalParameters + 1);
                     // ...
 
                     //webView.loadUrl("javascript:aqcallback('got components: " + routeComponents[0] + " " + me + " " + parameters + "')");
 
-                    manager.getHandler(routeComponents[0]).handleMessage(me, parameters);
+                    manager.getHandler(routeComponents[0]).handleMessage(method, parameters, cbComponents[0], cbComponents[1]);
                 }
                 // XXX TODO return new WebResourceResponse with null (no) data
                 return null;

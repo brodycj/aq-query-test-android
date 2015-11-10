@@ -11,7 +11,7 @@ In case I accept contributions from any others I will require CLA with similar s
 ## About
 
 This project demonstrates the following:
-- Ability to request native Android functionality from within a web worker.
+- Ability to request native iOS functionality from within a web worker *and return a callback to the web worker*.
 - Build a hybrid Javascript-native app without using a framework such as Cordova which requires attribution of use.
 
 The interaction between Javascript and native Java works as follows:
