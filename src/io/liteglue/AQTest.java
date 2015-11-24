@@ -6,6 +6,8 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.webkit.WebResourceResponse;
 
+import java.io.ByteArrayInputStream;
+
 public class AQTest extends Activity
 {
     AQManager manager = new AQManager();
@@ -87,8 +89,11 @@ public class AQTest extends Activity
                     //webView.loadUrl("javascript:aqcallback('got components: " + routeComponents[0] + " " + me + " " + parameters + "')");
 
                     manager.getHandler(routeComponents[0]).handleMessage(method, parameters, cbComponents[0], cbComponents[1]);
+
+                    return new WebResourceResponse("a", "a", new ByteArrayInputStream(new byte[0]));
                 }
-                // XXX TODO return new WebResourceResponse with null (no) data
+
+                // otherwise:
                 return null;
             }
         });
